@@ -19,7 +19,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 
-const frameworks = [
+const supportedDiagramTypes = [
 	{ value: "blockdiag", label: "BlockDiag" },
 	{ value: "bpmn", label: "BPMN" },
 	{ value: "bytefield", label: "Bytefield" },
@@ -64,7 +64,9 @@ export function DiagramTypeDropdown() {
 					className="justify-between"
 				>
 					{value
-						? frameworks.find((framework) => framework.value === value)?.label
+						? supportedDiagramTypes.find(
+								(diagramType) => diagramType.value === value,
+							)?.label
 						: "Select diagram type..."}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
@@ -75,20 +77,20 @@ export function DiagramTypeDropdown() {
 					<CommandList>
 						<CommandEmpty>No framework found.</CommandEmpty>
 						<CommandGroup>
-							{frameworks.map((framework) => (
+							{supportedDiagramTypes.map((diagramType) => (
 								<CommandItem
-									key={framework.value}
-									value={framework.value}
+									key={diagramType.value}
+									value={diagramType.value}
 									onSelect={(currentValue) => {
 										setValue(currentValue === value ? "" : currentValue);
 										setOpen(false);
 									}}
 								>
-									{framework.label}
+									{diagramType.label}
 									<Check
 										className={cn(
 											"ml-auto",
-											value === framework.value ? "opacity-100" : "opacity-0",
+											value === diagramType.value ? "opacity-100" : "opacity-0",
 										)}
 									/>
 								</CommandItem>
