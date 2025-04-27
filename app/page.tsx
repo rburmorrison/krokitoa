@@ -9,10 +9,12 @@ import DiagramTypeDropdown from "./_components/DiagramTypeDropdown";
 import { useState } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import React from "react";
+import * as kroki from "./_lib/kroki";
 
 export default function Home() {
 	const [diagramType, setDiagramType] = useState("mermaid");
 	const [diagramCode, setDiagramCode] = useState("flowchart TD\n    A --> B");
+	const [diagramSvg, setDiagramSvg] = useState<string | null>(null);
 
 	const onDiagramTypeChange = (value: string) => {
 		setDiagramType(value);
@@ -28,8 +30,14 @@ export default function Home() {
 		}
 	};
 
-	const handleCtrlEnter = () => {
-		console.log(diagramType, diagramCode);
+	const handleCtrlEnter = async () => {
+		try {
+			const svg = await kroki.generateDiagram(diagramType, diagramCode);
+			setDiagramSvg(svg);
+			console.log("Generated SVG:", svg);
+		} catch (error) {
+			console.error("Failed to generate diagram:", error);
+		}
 	};
 
 	React.useEffect(() => {
@@ -50,7 +58,7 @@ export default function Home() {
 		<div className="w-screen h-screen">
 			<ResizablePanelGroup direction="horizontal">
 				<ResizablePanel minSize={20} defaultSize={35} maxSize={50}>
-					<div className="flex gap-4 h-full p-4 flex-col bg-neutral-50">
+					<div className="flex gap-4 h-full p-4 flex-col">
 						<DiagramTypeDropdown
 							value={diagramType}
 							onValueChange={onDiagramTypeChange}
@@ -66,7 +74,18 @@ export default function Home() {
 				</ResizablePanel>
 				<ResizableHandle />
 				<ResizablePanel>
-					<div className="h-full flex justify-center items-center">Hello!</div>
+					<div className="h-full flex justify-center items-center bg-neutral-50">
+						{diagramSvg ? (
+							<img
+								src={`data:image/svg+xml;base64,${btoa(diagramSvg)}`}
+								alt="Generated Diagram"
+							/>
+						) : (
+							<p className="text-gray-500">
+								Press Ctrl/Cmd+Enter to generate a diagram.
+							</p>
+						)}
+					</div>
 				</ResizablePanel>
 			</ResizablePanelGroup>
 		</div>
