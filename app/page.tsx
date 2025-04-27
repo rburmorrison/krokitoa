@@ -6,12 +6,14 @@ import {
 	ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import DiagramTypeDropdown from "./_components/DiagramTypeDropdown";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import React from "react";
 import * as kroki from "./_lib/kroki";
-import { RefreshCcw } from "lucide-react";
+import { RefreshCcw, Crosshair } from "lucide-react";
 import DiagramOutput from "./_components/DiagramOutput";
+import { Button } from "@/components/ui/button";
+import type { DiagramOutputHandle } from "./_components/DiagramOutput";
 
 export default function Home() {
 	const [diagramType, setDiagramType] = useState("mermaid");
@@ -19,6 +21,7 @@ export default function Home() {
 	const [diagramSvg, setDiagramSvg] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const diagramOutputRef = useRef<DiagramOutputHandle>(null);
 
 	const onDiagramTypeChange = (value: string) => {
 		setDiagramType(value);
@@ -67,6 +70,18 @@ export default function Home() {
 
 	return (
 		<div className="w-screen h-screen">
+			<div
+				style={{ position: "absolute", top: "1rem", right: "1rem", zIndex: 20 }}
+			>
+				<Button
+					size="icon"
+					variant="ghost"
+					aria-label="Recenter diagram"
+					onClick={() => diagramOutputRef.current?.recenter()}
+				>
+					<Crosshair />
+				</Button>
+			</div>
 			<ResizablePanelGroup direction="horizontal">
 				<ResizablePanel minSize={20} defaultSize={35} maxSize={50}>
 					<div className="flex gap-4 h-full p-4 flex-col">
@@ -94,7 +109,10 @@ export default function Home() {
 										size={48}
 									/>
 								) : (
-									<DiagramOutput diagramSvg={diagramSvg} />
+									<DiagramOutput
+										ref={diagramOutputRef}
+										diagramSvg={diagramSvg}
+									/>
 								)}
 							</div>
 						</ResizablePanel>
