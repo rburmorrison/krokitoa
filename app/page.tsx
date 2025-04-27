@@ -10,7 +10,7 @@ import { useState, useRef } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import React from "react";
 import * as kroki from "./_lib/kroki";
-import { RefreshCcw, Crosshair } from "lucide-react";
+import { RefreshCcw, Crosshair, Maximize, Minimize } from "lucide-react";
 import DiagramOutput from "./_components/DiagramOutput";
 import { Button } from "@/components/ui/button";
 import type { DiagramOutputHandle } from "./_components/DiagramOutput";
@@ -21,6 +21,7 @@ export default function Home() {
 	const [diagramSvg, setDiagramSvg] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [isEditorHidden, setIsEditorHidden] = useState(false);
 	const diagramOutputRef = useRef<DiagramOutputHandle>(null);
 
 	const onDiagramTypeChange = (value: string) => {
@@ -54,6 +55,10 @@ export default function Home() {
 		}
 	};
 
+	const toggleEditorVisibility = () => {
+		setIsEditorHidden((prev) => !prev);
+	};
+
 	React.useEffect(() => {
 		if (typeof window !== "undefined") {
 			const storedType = localStorage.getItem("diagramType");
@@ -70,9 +75,15 @@ export default function Home() {
 
 	return (
 		<div className="w-screen h-screen">
-			<div
-				style={{ position: "absolute", top: "1rem", right: "1rem", zIndex: 20 }}
-			>
+			<div className="absolute top-4 right-4 z-20 flex">
+				<Button
+					size="icon"
+					variant="ghost"
+					aria-label={isEditorHidden ? "Show editor" : "Hide editor"}
+					onClick={toggleEditorVisibility}
+				>
+					{isEditorHidden ? <Minimize /> : <Maximize />}
+				</Button>
 				<Button
 					size="icon"
 					variant="ghost"
@@ -83,7 +94,12 @@ export default function Home() {
 				</Button>
 			</div>
 			<ResizablePanelGroup direction="horizontal">
-				<ResizablePanel minSize={20} defaultSize={35} maxSize={50}>
+				<ResizablePanel
+					minSize={20}
+					defaultSize={35}
+					maxSize={50}
+					hidden={isEditorHidden}
+				>
 					<div className="flex gap-4 h-full p-4 flex-col">
 						<DiagramTypeDropdown
 							value={diagramType}
