@@ -11,6 +11,7 @@ import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import React from "react";
 import * as kroki from "./_lib/kroki";
 import { RefreshCcw } from "lucide-react";
+import DiagramOutput from "./_components/DiagramOutput";
 
 export default function Home() {
 	const [diagramType, setDiagramType] = useState("mermaid");
@@ -92,16 +93,8 @@ export default function Home() {
 										className="animate-spin text-gray-500"
 										size={48}
 									/>
-								) : diagramSvg ? (
-									<img
-										src={`data:image/svg+xml;base64,${btoa(diagramSvg)}`}
-										alt="Generated Diagram"
-										className="select-none"
-									/>
 								) : (
-									<p className="text-gray-500">
-										Press Ctrl/Cmd+Enter to generate a diagram.
-									</p>
+									<DiagramOutput diagramSvg={diagramSvg} />
 								)}
 							</div>
 						</ResizablePanel>
