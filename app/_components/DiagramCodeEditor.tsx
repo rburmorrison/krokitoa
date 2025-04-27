@@ -9,6 +9,33 @@ interface DiagramCodeEditorProps {
 	onCtrlEnter: () => void;
 }
 
+/**
+ * A React functional component that wraps a Monaco Editor instance and provides
+ * additional functionality such as handling `Ctrl+Enter` key commands.
+ *
+ * @component
+ * @param {DiagramCodeEditorProps} props - The props for the DiagramCodeEditor component.
+ * @param {string} props.value - The current value of the editor.
+ * @param {(value: string | undefined) => void} props.onChange - Callback function triggered when the editor's value changes.
+ * @param {() => void} props.onCtrlEnter - Callback function triggered when the `Ctrl+Enter` key combination is pressed.
+ *
+ * @returns {JSX.Element} The rendered DiagramCodeEditor component.
+ *
+ * @remarks
+ * - This component uses the `useMonaco` hook to access the Monaco Editor instance.
+ * - The `onCtrlEnter` callback is registered as a command in the editor when both
+ *   the Monaco instance and the editor are mounted.
+ * - The editor's font size is set to 14 by default via the `options` prop.
+ *
+ * @example
+ * ```tsx
+ * <DiagramCodeEditor
+ *   value={code}
+ *   onChange={(newValue) => setCode(newValue)}
+ *   onCtrlEnter={() => console.log('Ctrl+Enter pressed')}
+ * />
+ * ```
+ */
 const DiagramCodeEditor: React.FC<DiagramCodeEditorProps> = ({
 	value,
 	onChange,
