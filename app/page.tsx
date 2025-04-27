@@ -7,12 +7,21 @@ import {
 } from "@/components/ui/resizable";
 import DiagramTypeDropdown from "./_components/DiagramTypeDropdown";
 import { useState } from "react";
-import { Editor } from "@monaco-editor/react";
+import { Editor, useMonaco } from "@monaco-editor/react";
+import type { editor } from "monaco-editor";
 import React from "react";
 
 export default function Home() {
+	const monaco = useMonaco();
+	const editorRef = React.useRef<editor.IStandaloneCodeEditor | null>(null);
 	const [diagramType, setDiagramType] = useState("mermaid");
 	const [diagramCode, setDiagramCode] = useState("flowchart TD\n    A --> B");
+	const [editorMounted, setEditorMounted] = useState(false);
+
+	const onEditorMount = (editor: editor.IStandaloneCodeEditor) => {
+		editorRef.current = editor;
+		setEditorMounted(true);
+	};
 
 	const onDiagramTypeChange = (value: string) => {
 		setDiagramType(value);
@@ -42,6 +51,17 @@ export default function Home() {
 		}
 	}, []);
 
+	React.useEffect(() => {
+		if (monaco && editorMounted) {
+			editorRef.current?.addCommand(
+				monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+				() => {
+					console.log(diagramType, diagramCode);
+				},
+			);
+		}
+	}, [monaco, diagramType, diagramCode, editorMounted]);
+
 	return (
 		<div className="w-screen h-screen">
 			<ResizablePanelGroup direction="horizontal">
@@ -55,6 +75,7 @@ export default function Home() {
 							<Editor
 								value={diagramCode}
 								onChange={onEditorChange}
+								onMount={onEditorMount}
 								options={{ fontSize: 14 }}
 							/>
 						</div>

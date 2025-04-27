@@ -1,2 +1,4 @@
-ignoredBuiltDependencies:
+onlyBuiltDependencies:
   - '@biomejs/biome'
+  - sharp
+  - unrs-resolver
