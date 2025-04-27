@@ -10,6 +10,7 @@ import { useState } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import React from "react";
 import * as kroki from "./_lib/kroki";
+import { RefreshCcw } from "lucide-react";
 
 export default function Home() {
 	const [diagramType, setDiagramType] = useState("mermaid");
@@ -86,7 +87,12 @@ export default function Home() {
 					<ResizablePanelGroup direction="vertical">
 						<ResizablePanel>
 							<div className="h-full flex justify-center items-center bg-neutral-50">
-								{diagramSvg ? (
+								{isLoading ? (
+									<RefreshCcw
+										className="animate-spin text-gray-500"
+										size={48}
+									/>
+								) : diagramSvg ? (
 									<img
 										src={`data:image/svg+xml;base64,${btoa(diagramSvg)}`}
 										alt="Generated Diagram"
