@@ -15,7 +15,6 @@ async function generateDiagram(
 
 	const headers = new Headers({
 		"Content-Type": "application/json",
-		Accept: "image/svg+xml",
 	});
 
 	const body = JSON.stringify({
@@ -28,11 +27,12 @@ async function generateDiagram(
 		body,
 	});
 
+	const responseBody = await response.text();
 	if (!response.ok) {
-		throw new Error(`Error: ${response.statusText}`);
+		throw new Error(responseBody);
 	}
 
-	return await response.text();
+	return responseBody;
 }
 
 export { generateDiagram };

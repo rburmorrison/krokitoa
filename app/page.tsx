@@ -15,6 +15,8 @@ export default function Home() {
 	const [diagramType, setDiagramType] = useState("mermaid");
 	const [diagramCode, setDiagramCode] = useState("flowchart TD\n    A --> B");
 	const [diagramSvg, setDiagramSvg] = useState<string | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	const onDiagramTypeChange = (value: string) => {
 		setDiagramType(value);
@@ -31,12 +33,19 @@ export default function Home() {
 	};
 
 	const handleCtrlEnter = async () => {
+		setError(null);
+		setIsLoading(true);
 		try {
 			const svg = await kroki.generateDiagram(diagramType, diagramCode);
 			setDiagramSvg(svg);
-			console.log("Generated SVG:", svg);
 		} catch (error) {
-			console.error("Failed to generate diagram:", error);
+			if (error instanceof Error) {
+				setError(error.message);
+			} else {
+				setError("An unknown error occurred.");
+			}
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -74,18 +83,35 @@ export default function Home() {
 				</ResizablePanel>
 				<ResizableHandle />
 				<ResizablePanel>
-					<div className="h-full flex justify-center items-center bg-neutral-50">
-						{diagramSvg ? (
-							<img
-								src={`data:image/svg+xml;base64,${btoa(diagramSvg)}`}
-								alt="Generated Diagram"
-							/>
-						) : (
-							<p className="text-gray-500">
-								Press Ctrl/Cmd+Enter to generate a diagram.
-							</p>
-						)}
-					</div>
+					<ResizablePanelGroup direction="vertical">
+						<ResizablePanel>
+							<div className="h-full flex justify-center items-center bg-neutral-50">
+								{diagramSvg ? (
+									<img
+										src={`data:image/svg+xml;base64,${btoa(diagramSvg)}`}
+										alt="Generated Diagram"
+										className="select-none"
+									/>
+								) : (
+									<p className="text-gray-500">
+										Press Ctrl/Cmd+Enter to generate a diagram.
+									</p>
+								)}
+							</div>
+						</ResizablePanel>
+						<ResizableHandle />
+						<ResizablePanel
+							hidden={error === null}
+							minSize={20}
+							defaultSize={20}
+							maxSize={50}
+						>
+							<div className="h-full font-mono flex p-4 overflow-auto">
+								<p>{error}</p>
+								<div className="mt-4" />
+							</div>
+						</ResizablePanel>
+					</ResizablePanelGroup>
 				</ResizablePanel>
 			</ResizablePanelGroup>
 		</div>
