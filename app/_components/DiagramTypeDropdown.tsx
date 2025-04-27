@@ -49,9 +49,13 @@ const supportedDiagramTypes = [
 	{ value: "wireviz", label: "WireViz" },
 ];
 
-export function DiagramTypeDropdown() {
+export interface DiagramTypeDropdownProps {
+	value: string;
+	onValueChange: (value: string) => void;
+}
+
+export function DiagramTypeDropdown({ value, onValueChange }: DiagramTypeDropdownProps) {
 	const [open, setOpen] = React.useState(false);
-	const [value, setValue] = React.useState("");
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -82,7 +86,7 @@ export function DiagramTypeDropdown() {
 									key={diagramType.value}
 									value={diagramType.value}
 									onSelect={(currentValue) => {
-										setValue(currentValue === value ? "" : currentValue);
+										onValueChange(currentValue === value ? "" : currentValue);
 										setOpen(false);
 									}}
 								>
