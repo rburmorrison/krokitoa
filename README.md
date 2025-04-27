@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Krokitoa
+
+Krokitoa is a front-end application for [Kroki](https://kroki.io/), a powerful open-source service that generates diagrams from textual descriptions. This project provides an intuitive interface for users to create, edit, and visualize diagrams using Kroki's unified API.
+
+## Features
+
+- **Diagram Type Selection**: Choose from a variety of supported diagram types such as Mermaid, GraphViz, PlantUML, and more.
+- **Code Editor**: A built-in editor powered by Monaco Editor for writing diagram descriptions.
+- **Live Preview**: Instantly render diagrams as SVGs based on the textual input.
+- **Resizable Panels**: Flexible layout with resizable panels for the editor and diagram preview.
+- **Error Handling**: Displays error messages when diagram generation fails.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (v19 or higher)
+- pnpm (v8 or higher)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd krokitoa
+   ```
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+### Development
+
+Start the development server:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To create a production build:
+```bash
+pnpm build
+```
 
-## Learn More
+### Linting and Formatting
 
-To learn more about Next.js, take a look at the following resources:
+- Lint the code:
+  ```bash
+  pnpm lint
+  ```
+- Format the code:
+  ```bash
+  pnpm format
+  ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How It Works
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Krokitoa interacts with the Kroki API to generate diagrams. Users can select a diagram type, write the corresponding textual description, and view the rendered diagram in real-time. The application uses local storage to persist the selected diagram type and code between sessions.
 
-## Deploy on Vercel
+## Technologies Used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js**: Framework for building the front-end.
+- **React**: Library for building user interfaces.
+- **Monaco Editor**: Code editor for writing diagram descriptions.
+- **shadcn/ui**: Accessible, Tailwind CSS-based components for modern UIs.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acknowledgments
+
+- [Kroki](https://kroki.io/) for providing the API and inspiration for this project.
