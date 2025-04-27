@@ -10,7 +10,7 @@ type DiagramOutputProps = {
 };
 
 const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
-	({ diagramSvg }, ref) => {
+	function DiagramOutput({ diagramSvg }, ref) {
 		const [dragging, setDragging] = useState(false);
 		const [offset, setOffset] = useState({ x: 0, y: 0 });
 		const lastPos = useRef<{ x: number; y: number } | null>(null);
@@ -58,6 +58,7 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 				onMouseUp={handleMouseUp}
 				onMouseLeave={handleMouseUp}
 			>
+				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img
 					src={`data:image/svg+xml;base64,${btoa(diagramSvg)}`}
 					alt="Generated Diagram"
