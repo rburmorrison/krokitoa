@@ -54,7 +54,37 @@ export interface DiagramTypeDropdownProps {
 	onValueChange: (value: string) => void;
 }
 
-export function DiagramTypeDropdown({ value, onValueChange }: DiagramTypeDropdownProps) {
+/**
+ * A dropdown component for selecting a diagram type from a predefined list.
+ *
+ * This component uses a popover to display a searchable list of diagram types.
+ * It allows users to select a diagram type, which triggers a callback function
+ * to handle the selection change.
+ *
+ * @param {DiagramTypeDropdownProps} props - The props for the component.
+ * @param {string} props.value - The currently selected diagram type value.
+ * @param {(value: string) => void} props.onValueChange - Callback function
+ * that is triggered when the selected diagram type changes. Receives the new
+ * value as an argument.
+ *
+ * @returns {JSX.Element} The rendered dropdown component.
+ *
+ * @example
+ * ```tsx
+ * const [selectedType, setSelectedType] = React.useState("");
+ *
+ * return (
+ *   <DiagramTypeDropdown
+ *     value={selectedType}
+ *     onValueChange={(newValue) => setSelectedType(newValue)}
+ *   />
+ * );
+ * ```
+ */
+export function DiagramTypeDropdown({
+	value,
+	onValueChange,
+}: DiagramTypeDropdownProps) {
 	const [open, setOpen] = React.useState(false);
 
 	return (
