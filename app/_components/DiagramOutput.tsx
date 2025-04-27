@@ -9,6 +9,41 @@ type DiagramOutputProps = {
 	diagramSvg: string | null;
 };
 
+/**
+ * A React component that displays a draggable and pannable diagram output.
+ * The diagram is rendered as an SVG image, and users can drag it to adjust its position.
+ * 
+ * @component
+ * @param {DiagramOutputProps} props - The props for the DiagramOutput component.
+ * @param {string} props.diagramSvg - The SVG content of the diagram to be displayed.
+ * @param {React.Ref<DiagramOutputHandle>} ref - A ref object to expose imperative methods.
+ * 
+ * @returns {JSX.Element} The rendered DiagramOutput component.
+ * 
+ * @example
+ * ```tsx
+ * const diagramRef = useRef<DiagramOutputHandle>(null);
+ * 
+ * const handleRecenter = () => {
+ *   diagramRef.current?.recenter();
+ * };
+ * 
+ * return (
+ *   <DiagramOutput
+ *     ref={diagramRef}
+ *     diagramSvg="<svg>...</svg>"
+ *   />
+ * );
+ * ```
+ * 
+ * @remarks
+ * - If no `diagramSvg` is provided, a placeholder message is displayed.
+ * - The component supports dragging to pan the diagram using mouse events.
+ * - The `recenter` method can be called via the ref to reset the diagram's position.
+ * 
+ * @typedef {Object} DiagramOutputHandle
+ * @property {() => void} recenter - Resets the diagram's position to the center.
+ */
 const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 	function DiagramOutput({ diagramSvg }, ref) {
 		const [dragging, setDragging] = useState(false);
