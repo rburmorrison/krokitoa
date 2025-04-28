@@ -12,22 +12,22 @@ type DiagramOutputProps = {
 /**
  * A React component that displays a draggable and pannable diagram output.
  * The diagram is rendered as an SVG image, and users can drag it to adjust its position.
- * 
+ *
  * @component
  * @param {DiagramOutputProps} props - The props for the DiagramOutput component.
  * @param {string} props.diagramSvg - The SVG content of the diagram to be displayed.
  * @param {React.Ref<DiagramOutputHandle>} ref - A ref object to expose imperative methods.
- * 
+ *
  * @returns {JSX.Element} The rendered DiagramOutput component.
- * 
+ *
  * @example
  * ```tsx
  * const diagramRef = useRef<DiagramOutputHandle>(null);
- * 
+ *
  * const handleRecenter = () => {
  *   diagramRef.current?.recenter();
  * };
- * 
+ *
  * return (
  *   <DiagramOutput
  *     ref={diagramRef}
@@ -35,12 +35,12 @@ type DiagramOutputProps = {
  *   />
  * );
  * ```
- * 
+ *
  * @remarks
  * - If no `diagramSvg` is provided, a placeholder message is displayed.
  * - The component supports dragging to pan the diagram using mouse events.
  * - The `recenter` method can be called via the ref to reset the diagram's position.
- * 
+ *
  * @typedef {Object} DiagramOutputHandle
  * @property {() => void} recenter - Resets the diagram's position to the center.
  */
@@ -48,12 +48,16 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 	function DiagramOutput({ diagramSvg }, ref) {
 		const [dragging, setDragging] = useState(false);
 		const [offset, setOffset] = useState({ x: 0, y: 0 });
+		const [zoom, setZoom] = useState(1);
 		const lastPos = useRef<{ x: number; y: number } | null>(null);
 
 		useImperativeHandle(
 			ref,
 			() => ({
-				recenter: () => setOffset({ x: 0, y: 0 }),
+				recenter: () => {
+					setOffset({ x: 0, y: 0 });
+					setZoom(1);
+				},
 			}),
 			[],
 		);
@@ -76,6 +80,13 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 			lastPos.current = null;
 		};
 
+		const handleWheel = (e: React.WheelEvent) => {
+			setZoom((prevZoom) => {
+				const newZoom = prevZoom - e.deltaY * 0.001;
+				return Math.min(Math.max(newZoom, 0.25), 3); // Clamp zoom between 0.5 and 2
+			});
+		};
+
 		if (!diagramSvg) {
 			return (
 				<p className="text-gray-500">
@@ -92,6 +103,7 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 				onMouseMove={handleMouseMove}
 				onMouseUp={handleMouseUp}
 				onMouseLeave={handleMouseUp}
+				onWheel={handleWheel}
 			>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img
@@ -99,7 +111,7 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 					alt="Generated Diagram"
 					className="select-none max-w-none"
 					style={{
-						transform: `translate(${offset.x}px, ${offset.y}px)`,
+						transform: `translate(${offset.x}px, ${offset.y}px) scale(${zoom})`,
 					}}
 					draggable={false}
 				/>
