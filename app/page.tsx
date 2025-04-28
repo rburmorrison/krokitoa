@@ -10,7 +10,14 @@ import { useState, useRef } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import React from "react";
 import * as kroki from "./_lib/kroki";
-import { RefreshCcw, Crosshair, Maximize, Minimize, Save } from "lucide-react";
+import {
+	RefreshCcw,
+	Crosshair,
+	Maximize,
+	Minimize,
+	Save,
+	Play,
+} from "lucide-react";
 import DiagramOutput from "./_components/DiagramOutput";
 import { Button } from "@/components/ui/button";
 import type { DiagramOutputHandle } from "./_components/DiagramOutput";
@@ -38,7 +45,7 @@ export default function Home() {
 		}
 	};
 
-	const handleCtrlEnter = async () => {
+	const generateDiagram = async () => {
 		setError(null);
 		setIsLoading(true);
 		try {
@@ -117,15 +124,27 @@ export default function Home() {
 					hidden={isEditorHidden}
 				>
 					<div className="flex gap-4 h-full p-4 flex-col">
-						<DiagramTypeDropdown
-							value={diagramType}
-							onValueChange={onDiagramTypeChange}
-						/>
+						<div className="flex items-center gap-2">
+							<div className="flex-1">
+								<DiagramTypeDropdown
+									value={diagramType}
+									onValueChange={onDiagramTypeChange}
+								/>
+							</div>
+							<Button
+								size="icon"
+								variant="outline"
+								aria-label="Generate diagram"
+								onClick={generateDiagram}
+							>
+								<Play />
+							</Button>
+						</div>
 						<div className="rounded flex-1 border border-slate-200">
 							<DiagramCodeEditor
 								value={diagramCode}
 								onChange={onEditorChange}
-								onCtrlEnter={handleCtrlEnter}
+								onCtrlEnter={generateDiagram}
 							/>
 						</div>
 					</div>

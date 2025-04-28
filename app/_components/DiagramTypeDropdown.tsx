@@ -95,7 +95,7 @@ const DiagramTypeDropdown: React.FC<DiagramTypeDropdownProps> = ({
 					// biome-ignore lint/a11y/useSemanticElements: a select would cause a duplicate menu
 					role="combobox"
 					aria-expanded={open}
-					className="justify-between"
+					className="justify-between w-full"
 				>
 					{value
 						? supportedDiagramTypes.find(
