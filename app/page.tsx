@@ -21,6 +21,7 @@ import {
 import DiagramOutput from "./_components/DiagramOutput";
 import { Button } from "@/components/ui/button";
 import type { DiagramOutputHandle } from "./_components/DiagramOutput";
+import IconButton from "./_components/IconButton";
 
 export default function Home() {
 	const [diagramType, setDiagramType] = useState("mermaid");
@@ -83,27 +84,19 @@ export default function Home() {
 	return (
 		<div className="w-screen h-screen">
 			<div className="absolute top-4 right-4 z-20 flex">
-				<Button
-					size="icon"
-					variant="ghost"
-					aria-label={isEditorHidden ? "Show editor" : "Hide editor"}
+				<IconButton
+					icon={isEditorHidden ? Minimize : Maximize}
+					ariaLabel={isEditorHidden ? "Show editor" : "Hide editor"}
 					onClick={toggleEditorVisibility}
-				>
-					{isEditorHidden ? <Minimize /> : <Maximize />}
-				</Button>
-				<Button
-					size="icon"
-					variant="ghost"
-					aria-label="Recenter diagram"
+				/>
+				<IconButton
+					icon={Crosshair}
+					ariaLabel="Recenter diagram"
 					onClick={() => diagramOutputRef.current?.recenter()}
-				>
-					<Crosshair />
-				</Button>
-				<Button
-					size="icon"
-					variant="ghost"
-					aria-label="Download diagram"
-					disabled={!diagramSvg}
+				/>
+				<IconButton
+					icon={Save}
+					ariaLabel="Download diagram"
 					onClick={() => {
 						if (diagramSvg) {
 							const link = document.createElement("a");
@@ -112,9 +105,8 @@ export default function Home() {
 							link.click();
 						}
 					}}
-				>
-					<Save />
-				</Button>
+					disabled={!diagramSvg}
+				/>
 			</div>
 			<ResizablePanelGroup direction="horizontal">
 				<ResizablePanel
