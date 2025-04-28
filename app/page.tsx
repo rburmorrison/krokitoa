@@ -10,7 +10,7 @@ import { useState, useRef } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import React from "react";
 import * as kroki from "./_lib/kroki";
-import { RefreshCcw, Crosshair, Maximize, Minimize } from "lucide-react";
+import { RefreshCcw, Crosshair, Maximize, Minimize, Save } from "lucide-react";
 import DiagramOutput from "./_components/DiagramOutput";
 import { Button } from "@/components/ui/button";
 import type { DiagramOutputHandle } from "./_components/DiagramOutput";
@@ -91,6 +91,22 @@ export default function Home() {
 					onClick={() => diagramOutputRef.current?.recenter()}
 				>
 					<Crosshair />
+				</Button>
+				<Button
+					size="icon"
+					variant="ghost"
+					aria-label="Download diagram"
+					disabled={!diagramSvg}
+					onClick={() => {
+						if (diagramSvg) {
+							const link = document.createElement("a");
+							link.href = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(diagramSvg)}`;
+							link.download = "diagram.svg";
+							link.click();
+						}
+					}}
+				>
+					<Save />
 				</Button>
 			</div>
 			<ResizablePanelGroup direction="horizontal">
