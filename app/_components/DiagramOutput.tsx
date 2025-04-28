@@ -86,7 +86,7 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 
 		return (
 			<div
-				className="w-full h-full flex justify-center items-center"
+				className="w-full h-full flex justify-center items-center overflow-hidden"
 				style={{ cursor: dragging ? "grabbing" : "grab" }}
 				onMouseDown={handleMouseDown}
 				onMouseMove={handleMouseMove}
@@ -97,7 +97,7 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 				<img
 					src={`data:image/svg+xml;base64,${btoa(diagramSvg)}`}
 					alt="Generated Diagram"
-					className="select-none"
+					className="select-none max-w-none"
 					style={{
 						transform: `translate(${offset.x}px, ${offset.y}px)`,
 					}}
