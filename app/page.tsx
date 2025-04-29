@@ -6,7 +6,7 @@ import {
 	ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import DiagramTypeDropdown from "./_components/DiagramTypeDropdown";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import * as kroki from "./_lib/kroki";
 import {
@@ -33,6 +33,7 @@ export default function Home() {
 	const [isEditorHidden, setIsEditorHidden] = useState(false);
 	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 	const diagramOutputRef = useRef<DiagramOutputHandle>(null);
+	const [upstreamUrl, setUpstreamUrl] = useState<string | null>(null);
 
 	const onDiagramTypeChange = (value: string) => {
 		setDiagramType(value);
@@ -83,10 +84,9 @@ export default function Home() {
 		}
 	}, []);
 
-	const upstreamUrl = useMemo(
-		() => kroki.generateUrl(diagramType, diagramCode),
-		[diagramType, diagramCode],
-	);
+	useEffect(() => {
+		setUpstreamUrl(kroki.generateUrl(diagramType, diagramCode));
+	}, [diagramType, diagramCode]);
 
 	return (
 		<div className="w-screen h-screen">
