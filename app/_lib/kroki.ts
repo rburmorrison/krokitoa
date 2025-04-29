@@ -1,3 +1,5 @@
+const DEFAULT_KROKI_URL = "https://kroki.io";
+
 /**
  * Generates a diagram in SVG format using the Kroki API.
  *
@@ -10,7 +12,10 @@ async function generateDiagram(
 	diagramType: string,
 	diagramCode: string,
 ): Promise<string> {
-	const krokiUrl = "https://kroki.io";
+	const krokiUrl =
+		typeof window !== "undefined"
+			? localStorage.getItem("krokiUrl") || DEFAULT_KROKI_URL
+			: DEFAULT_KROKI_URL;
 	const url = `${krokiUrl}/${diagramType}/svg`;
 
 	const headers = new Headers({

@@ -17,11 +17,13 @@ import {
 	Minimize,
 	Save,
 	Play,
+	Settings,
 } from "lucide-react";
 import DiagramOutput from "./_components/DiagramOutput";
 import { Button } from "@/components/ui/button";
 import type { DiagramOutputHandle } from "./_components/DiagramOutput";
 import IconButton from "./_components/IconButton";
+import { SettingsModal } from "./_components/SettingsModal";
 
 export default function Home() {
 	const [diagramType, setDiagramType] = useState("mermaid");
@@ -30,6 +32,7 @@ export default function Home() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isEditorHidden, setIsEditorHidden] = useState(false);
+	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 	const diagramOutputRef = useRef<DiagramOutputHandle>(null);
 
 	const onDiagramTypeChange = (value: string) => {
@@ -107,7 +110,13 @@ export default function Home() {
 					}}
 					disabled={!diagramSvg}
 				/>
+				<IconButton
+					icon={Settings}
+					ariaLabel="Open settings"
+					onClick={() => setIsSettingsOpen(true)}
+				/>
 			</div>
+			<SettingsModal open={isSettingsOpen} onOpenChange={setIsSettingsOpen} />
 			<ResizablePanelGroup direction="horizontal">
 				<ResizablePanel
 					minSize={20}
