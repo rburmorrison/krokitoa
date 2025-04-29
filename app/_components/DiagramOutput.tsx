@@ -83,7 +83,7 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 		const handleWheel = (e: React.WheelEvent) => {
 			setZoom((prevZoom) => {
 				const newZoom = prevZoom - e.deltaY * 0.001;
-				return Math.min(Math.max(newZoom, 0.25), 3); // Clamp zoom between 0.5 and 2
+				return Math.min(Math.max(newZoom, 0.25), 3); // Clamp zoom between 0.25 and 3
 			});
 		};
 

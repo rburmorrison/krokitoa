@@ -11,7 +11,7 @@ export default function RootLayout({
 		<>
 			<html lang="en" suppressHydrationWarning>
 				<head />
-				<body>
+				<body className="overscroll-none">
 					<ThemeProvider
 						attribute="class"
 						defaultTheme="system"
