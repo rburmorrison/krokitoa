@@ -25,15 +25,15 @@ import IconButton from "./_components/IconButton";
 import { SettingsModal } from "./_components/SettingsModal";
 
 export default function Home() {
-	const [diagramType, setDiagramType] = useState("mermaid");
 	const [diagramCode, setDiagramCode] = useState("flowchart TD\n    A --> B");
 	const [diagramSvg, setDiagramSvg] = useState<string | null>(null);
-	const [isLoading, setIsLoading] = useState(false);
+	const [diagramType, setDiagramType] = useState("mermaid");
 	const [error, setError] = useState<string | null>(null);
 	const [isEditorHidden, setIsEditorHidden] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-	const diagramOutputRef = useRef<DiagramOutputHandle>(null);
 	const [upstreamUrl, setUpstreamUrl] = useState<string | null>(null);
+	const diagramOutputRef = useRef<DiagramOutputHandle>(null);
 
 	const onDiagramTypeChange = (value: string) => {
 		setDiagramType(value);
