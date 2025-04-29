@@ -84,9 +84,12 @@ export default function Home() {
 		}
 	}, []);
 
+	// biome-ignore lint/correctness/useExhaustiveDependencies: see comment below
 	useEffect(() => {
+		// Regenerate the diagram URL when diagramType or diagramCode changes,
+		// or when the settings modal is closed (tracked by isSettingsOpen).
 		setUpstreamUrl(kroki.generateUrl(diagramType, diagramCode));
-	}, [diagramType, diagramCode]);
+	}, [diagramType, diagramCode, isSettingsOpen]);
 
 	return (
 		<div className="w-screen h-screen">
