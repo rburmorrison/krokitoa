@@ -141,7 +141,7 @@ export default function Home() {
 								<Play />
 							</Button>
 						</div>
-						<div className="rounded flex-1 border border-slate-200">
+						<div className="rounded flex-1 border border-neutral-200 dark:border-neutral-700">
 							<DiagramCodeEditor
 								value={diagramCode}
 								onChange={onEditorChange}
@@ -154,7 +154,7 @@ export default function Home() {
 				<ResizablePanel>
 					<ResizablePanelGroup direction="vertical">
 						<ResizablePanel>
-							<div className="h-full flex justify-center items-center bg-neutral-50">
+							<div className="h-full flex justify-center items-center bg-neutral-50 dark:bg-neutral-900">
 								{isLoading ? (
 									<RefreshCcw
 										className="animate-spin text-gray-500"

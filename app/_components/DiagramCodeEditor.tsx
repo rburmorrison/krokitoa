@@ -2,6 +2,7 @@ import { Editor, useMonaco } from "@monaco-editor/react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { editor } from "monaco-editor";
+import { useTheme } from "next-themes";
 
 interface DiagramCodeEditorProps {
 	value: string;
@@ -43,6 +44,7 @@ const DiagramCodeEditor: React.FC<DiagramCodeEditorProps> = ({
 }) => {
 	const monaco = useMonaco();
 	const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+	const { resolvedTheme } = useTheme();
 	const [editorMounted, setEditorMounted] = useState(false);
 
 	const onEditorMount = (editor: editor.IStandaloneCodeEditor) => {
@@ -64,6 +66,7 @@ const DiagramCodeEditor: React.FC<DiagramCodeEditorProps> = ({
 			value={value}
 			onChange={onChange}
 			onMount={onEditorMount}
+			theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
 			options={{ fontSize: 14 }}
 		/>
 	);
