@@ -1,3 +1,5 @@
+import pako from "pako";
+
 const DEFAULT_KROKI_URL = "https://kroki.io";
 
 /**
@@ -40,4 +42,20 @@ async function generateDiagram(
 	return responseBody;
 }
 
-export { generateDiagram };
+function generateUrl(diagramType: string, diagramCode: string): string {
+	const krokiUrl =
+		typeof window !== "undefined"
+			? localStorage.getItem("krokiUrl") || DEFAULT_KROKI_URL
+			: DEFAULT_KROKI_URL;
+
+	const data = Buffer.from(diagramCode, "utf8");
+	const compressed = pako.deflate(data, { level: 9 });
+	const result = Buffer.from(compressed)
+		.toString("base64")
+		.replace(/\+/g, "-")
+		.replace(/\//g, "_");
+
+	return `${krokiUrl}/${diagramType}/svg/${result}`;
+}
+
+export { generateDiagram, generateUrl };

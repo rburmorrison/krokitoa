@@ -6,9 +6,8 @@ import {
 	ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import DiagramTypeDropdown from "./_components/DiagramTypeDropdown";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import DiagramCodeEditor from "./_components/DiagramCodeEditor";
-import React from "react";
 import * as kroki from "./_lib/kroki";
 import {
 	RefreshCcw,
@@ -70,7 +69,7 @@ export default function Home() {
 		setIsEditorHidden((prev) => !prev);
 	};
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const storedType = localStorage.getItem("diagramType");
 			if (storedType) {
@@ -83,6 +82,11 @@ export default function Home() {
 			}
 		}
 	}, []);
+
+	const upstreamUrl = useMemo(
+		() => kroki.generateUrl(diagramType, diagramCode),
+		[diagramType, diagramCode],
+	);
 
 	return (
 		<div className="w-screen h-screen">
@@ -147,6 +151,18 @@ export default function Home() {
 								onChange={onEditorChange}
 								onCtrlEnter={generateDiagram}
 							/>
+						</div>
+						<div className="overflow-hidden text-ellipsis whitespace-nowrap">
+							{upstreamUrl && (
+								<a
+									href={upstreamUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="underline"
+								>
+									{upstreamUrl}
+								</a>
+							)}
 						</div>
 					</div>
 				</ResizablePanel>
