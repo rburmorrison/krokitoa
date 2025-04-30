@@ -120,3 +120,7 @@ Krokitoa interacts with the Kroki API to generate diagrams. Users can select a d
 ## Acknowledgments
 
 - [Kroki](https://kroki.io/) for providing the API and inspiration for this project.
+
+## License
+
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](./LICENSE) file for details.
