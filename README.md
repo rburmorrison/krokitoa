@@ -56,6 +56,55 @@ pnpm build
   pnpm format
   ```
 
+## Running with Docker
+
+> **Note**: The `docker-compose.yml` file provided in this repository is an extension of the one from the [Kroki documentation](https://docs.kroki.io/kroki/setup/use-docker-or-podman/). Credit goes to the Kroki project and its contributors for their work on the original configuration.
+
+You can run the Krokitoa application using Docker. This setup includes both the front-end application and the Kroki service for diagram generation.
+
+### Prerequisites
+
+- Docker
+- Docker Compose
+
+### Steps
+
+1. Build and start the Docker containers:
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Access the application:
+   - The front-end will be available at `http://localhost:3000`.
+   - The Kroki service will be available at `http://localhost:8000`.
+
+### Services
+
+- **frontend**: The Krokitoa front-end application.
+- **kroki**: The Kroki API service for diagram generation.
+- **mermaid**, **bpmn**, **excalidraw**: Sub-services used by Kroki for specific diagram types.
+
+### Notes
+
+- The `docker-compose.yml` file defines the services and their dependencies.
+- The `Dockerfile` is used to build the front-end application image.
+
+### Running the Front-End as a Standalone Container
+
+If you only want to run the front-end application as a standalone container, you can use the `Dockerfile` directly without the other services. This setup will connect the front-end to the public Kroki instance.
+
+1. Build the Docker image:
+   ```bash
+   docker build -t krokitoa-frontend .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 3000:3000 krokitoa-frontend
+   ```
+
+3. Access the front-end application at `http://localhost:3000`.
+
 ## How It Works
 
 Krokitoa interacts with the Kroki API to generate diagrams. Users can select a diagram type, write the corresponding textual description, and view the rendered diagram in real-time. The application uses local storage to persist the selected diagram type and code between sessions.
