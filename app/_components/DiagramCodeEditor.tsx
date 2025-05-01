@@ -1,8 +1,10 @@
-import { Editor, useMonaco } from "@monaco-editor/react";
+import { Editor, useMonaco, loader } from "@monaco-editor/react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { editor } from "monaco-editor";
 import { useTheme } from "next-themes";
+
+loader.config({ paths: { vs: "/static/vs" } });
 
 interface DiagramCodeEditorProps {
 	value: string;

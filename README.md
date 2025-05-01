@@ -117,6 +117,10 @@ Krokitoa interacts with the Kroki API to generate diagrams. Users can select a d
 - **shadcn/ui**: Accessible, Tailwind CSS-based components for modern UIs.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 
+## Third-Party Licenses
+
+This project uses several third-party libraries and tools. For details about their licenses and attributions, please refer to the [Third-Party Notices](./THIRD-PARTY.md) file.
+
 ## Acknowledgments
 
 - [Kroki](https://kroki.io/) for providing the API and inspiration for this project.
