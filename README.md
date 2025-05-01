@@ -1,5 +1,9 @@
 # Krokitoa
 
+<p align="center">
+   <img src="doc/Krokitoa GitHub Banner.png" alt="Krokitoa GitHub Banner">
+</p>
+
 Krokitoa is a front-end application for [Kroki](https://kroki.io/), a powerful open-source service that generates diagrams from textual descriptions. This project provides an intuitive interface for users to create, edit, and visualize diagrams using Kroki's unified API.
 
 ## Features
