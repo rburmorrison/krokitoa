@@ -123,7 +123,7 @@ When using the code editor, you can press **CTRL+Enter** (on Windows/Linux) or *
 
 ## Third-Party Licenses
 
-This project uses several third-party libraries and tools. For details about their licenses and attributions, please refer to the [Third-Party Notices](./THIRD-PARTY.md) file.
+This project uses several third-party libraries and tools. For details about their licenses and attributions, please refer to the [Third-Party Notices](./THIRD_PARTY_NOTICES.md) file.
 
 ## Acknowledgments
 
