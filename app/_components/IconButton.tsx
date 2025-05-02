@@ -1,4 +1,3 @@
-import type React from "react";
 import { Button } from "@/components/ui/button";
 import type { LucideIcon } from "lucide-react";
 
@@ -9,12 +8,12 @@ type IconButtonProps = {
 	disabled?: boolean;
 };
 
-const IconButton: React.FC<IconButtonProps> = ({
+export default function IconButton({
 	icon: Icon,
 	ariaLabel,
 	onClick,
 	disabled = false,
-}) => {
+}: IconButtonProps) {
 	return (
 		<Button
 			size="icon"
@@ -26,6 +25,4 @@ const IconButton: React.FC<IconButtonProps> = ({
 			<Icon />
 		</Button>
 	);
-};
-
-export default IconButton;
+}

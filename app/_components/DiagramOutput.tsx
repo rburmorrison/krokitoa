@@ -1,5 +1,5 @@
-import type React from "react";
 import { useRef, useState, useImperativeHandle, forwardRef } from "react";
+import type React from "react";
 
 export type DiagramOutputHandle = {
 	recenter: () => void;
@@ -44,7 +44,7 @@ type DiagramOutputProps = {
  * @typedef {Object} DiagramOutputHandle
  * @property {() => void} recenter - Resets the diagram's position to the center.
  */
-const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
+export default forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 	function DiagramOutput({ diagramSvg }, ref) {
 		const [dragging, setDragging] = useState(false);
 		const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -119,5 +119,3 @@ const DiagramOutput = forwardRef<DiagramOutputHandle, DiagramOutputProps>(
 		);
 	},
 );
-
-export default DiagramOutput;

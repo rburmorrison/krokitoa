@@ -22,7 +22,7 @@ import DiagramOutput from "./_components/DiagramOutput";
 import { Button } from "@/components/ui/button";
 import type { DiagramOutputHandle } from "./_components/DiagramOutput";
 import IconButton from "./_components/IconButton";
-import { SettingsModal } from "./_components/SettingsModal";
+import SettingsModal from "./_components/SettingsModal";
 
 export default function Home() {
 	const [diagramCode, setDiagramCode] = useState("flowchart TD\n    A --> B");

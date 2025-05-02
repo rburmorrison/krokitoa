@@ -27,7 +27,10 @@ interface SettingsModalProps {
 	onOpenChange: (open: boolean) => void;
 }
 
-export function SettingsModal({ open, onOpenChange }: SettingsModalProps) {
+export default function SettingsModal({
+	open,
+	onOpenChange,
+}: SettingsModalProps) {
 	const [krokiUrl, setKrokiUrl] = useState(DEFAULT_KROKI_URL);
 	const { theme, setTheme } = useTheme();
 	const [themeValue, setThemeValue] = useState(theme ?? "system");

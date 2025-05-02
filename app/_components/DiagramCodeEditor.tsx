@@ -1,5 +1,4 @@
 import { Editor, useMonaco, loader } from "@monaco-editor/react";
-import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { editor } from "monaco-editor";
 import { useTheme } from "next-themes";
@@ -39,11 +38,11 @@ interface DiagramCodeEditorProps {
  * />
  * ```
  */
-const DiagramCodeEditor: React.FC<DiagramCodeEditorProps> = ({
+export default function DiagramCodeEditor({
 	value,
 	onChange,
 	onCtrlEnter,
-}) => {
+}: DiagramCodeEditorProps) {
 	const monaco = useMonaco();
 	const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -78,6 +77,4 @@ const DiagramCodeEditor: React.FC<DiagramCodeEditorProps> = ({
 			/>
 		</div>
 	);
-};
-
-export default DiagramCodeEditor;
+}

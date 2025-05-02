@@ -81,10 +81,10 @@ export interface DiagramTypeDropdownProps {
  * );
  * ```
  */
-const DiagramTypeDropdown: React.FC<DiagramTypeDropdownProps> = ({
+export default function DiagramTypeDropdown({
 	value,
 	onValueChange,
-}) => {
+}: DiagramTypeDropdownProps) {
 	const [open, setOpen] = React.useState(false);
 
 	return (
@@ -135,6 +135,4 @@ const DiagramTypeDropdown: React.FC<DiagramTypeDropdownProps> = ({
 			</PopoverContent>
 		</Popover>
 	);
-};
-
-export default DiagramTypeDropdown;
+}
