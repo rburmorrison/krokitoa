@@ -131,7 +131,7 @@ export default function Home() {
 					maxSize={50}
 					hidden={isEditorHidden}
 				>
-					<div className="flex gap-4 h-full p-4 flex-col">
+					<div className="flex gap-4 h-full p-4 flex-col min-h-0">
 						<div className="flex items-center gap-2">
 							<div className="flex-1">
 								<DiagramTypeDropdown
@@ -148,7 +148,7 @@ export default function Home() {
 								<Play />
 							</Button>
 						</div>
-						<div className="rounded flex-1 border border-neutral-200 dark:border-neutral-700">
+						<div className="rounded flex-1 border border-neutral-200 dark:border-neutral-700 min-h-0">
 							<DiagramCodeEditor
 								value={diagramCode}
 								onChange={onEditorChange}

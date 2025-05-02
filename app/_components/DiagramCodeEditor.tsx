@@ -46,9 +46,9 @@ const DiagramCodeEditor: React.FC<DiagramCodeEditorProps> = ({
 }) => {
 	const monaco = useMonaco();
 	const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 	const { resolvedTheme } = useTheme();
 	const [editorMounted, setEditorMounted] = useState(false);
-
 	const onEditorMount = (editor: editor.IStandaloneCodeEditor) => {
 		editorRef.current = editor;
 		setEditorMounted(true);
@@ -64,13 +64,19 @@ const DiagramCodeEditor: React.FC<DiagramCodeEditorProps> = ({
 	}, [monaco, editorMounted, onCtrlEnter]);
 
 	return (
-		<Editor
-			value={value}
-			onChange={onChange}
-			onMount={onEditorMount}
-			theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
-			options={{ fontSize: 14 }}
-		/>
+		<div ref={containerRef} className="h-full w-full min-h-0 flex flex-col">
+			<Editor
+				value={value}
+				onChange={onChange}
+				onMount={onEditorMount}
+				theme={resolvedTheme === "dark" ? "vs-dark" : "light"}
+				options={{
+					fontSize: 14,
+					automaticLayout: true,
+				}}
+				className="h-full w-full min-h-0 flex-1"
+			/>
+		</div>
 	);
 };
 
