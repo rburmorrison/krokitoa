@@ -8,11 +8,16 @@ Krokitoa is a front-end application for [Kroki](https://kroki.io/), a powerful o
 
 ## Features
 
+<p align="center">
+   <img src="doc/demo.gif" alt="Krokitoa Demo">
+</p>
+
 - **Diagram Type Selection**: Choose from a variety of supported diagram types such as Mermaid, GraphViz, PlantUML, and more.
 - **Code Editor**: A built-in editor powered by Monaco Editor for writing diagram descriptions.
-- **Live Preview**: Instantly render diagrams as SVGs based on the textual input.
+- **Live Preview**: Instantly render diagrams as SVGs based on the textual input. Includes drag-and-zoom functionality.
 - **Resizable Panels**: Flexible layout with resizable panels for the editor and diagram preview.
 - **Error Handling**: Displays error messages when diagram generation fails.
+- **Settings**: Configure the application's appearance and behavior, including private Kroki instances.
 
 ## Getting Started
 
