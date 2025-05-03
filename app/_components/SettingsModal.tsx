@@ -19,7 +19,7 @@ import {
 	DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import useAccentColor, { type AccentColor } from "@/hooks/useAccentColor";
+import useAccentColor, { type AccentColor } from "@/app/_hooks/useAccentColor";
 
 const DEFAULT_KROKI_URL = "https://kroki.io";
 
@@ -150,7 +150,7 @@ export default function SettingsModal({
 											<div
 												className="w-4 h-4 rounded-full"
 												style={{
-													background: "oklch(0.5 0 0)", // Neutral color
+													background: "var(--accent-neutral)", // Neutral color
 												}}
 											/>
 											Neutral
@@ -160,7 +160,7 @@ export default function SettingsModal({
 										<div className="flex items-center gap-2">
 											<div
 												className="w-4 h-4 rounded-full"
-												style={{ background: "oklch(0.65 0.25 25)" }}
+												style={{ background: "var(--accent-red)" }}
 											/>
 											Red
 										</div>
@@ -169,7 +169,7 @@ export default function SettingsModal({
 										<div className="flex items-center gap-2">
 											<div
 												className="w-4 h-4 rounded-full"
-												style={{ background: "oklch(0.75 0.18 80)" }}
+												style={{ background: "var(--accent-orange)" }}
 											/>
 											Orange
 										</div>
@@ -178,7 +178,7 @@ export default function SettingsModal({
 										<div className="flex items-center gap-2">
 											<div
 												className="w-4 h-4 rounded-full"
-												style={{ background: "oklch(0.55 0.20 260)" }}
+												style={{ background: "var(--accent-blue)" }}
 											/>
 											Blue
 										</div>
