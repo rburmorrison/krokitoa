@@ -39,6 +39,14 @@ export default function SettingsModal({
 	const [accentColorValue, setAccentColorValue] =
 		useState<AccentColor>(accentColor);
 
+	// Map accent colors to their CSS variables
+	const accentColorMap: Record<AccentColor, string> = {
+		neutral: "var(--accent-neutral)",
+		red: "var(--accent-red)",
+		orange: "var(--accent-orange)",
+		blue: "var(--accent-blue)",
+	};
+
 	useEffect(() => {
 		const savedUrl = localStorage.getItem("krokiUrl");
 		if (savedUrl) {
@@ -123,14 +131,7 @@ export default function SettingsModal({
 										<div
 											className="w-4 h-4 rounded-full"
 											style={{
-												background:
-													accentColorValue === "neutral"
-														? "var(--accent-neutral)" // Neutral color
-														: accentColorValue === "red"
-															? "var(--accent-red)"
-															: accentColorValue === "orange"
-																? "var(--accent-orange)"
-																: "var(--accent-blue)",
+												background: accentColorMap[accentColorValue],
 											}}
 										/>
 										{accentColorDisplayName}
@@ -150,7 +151,7 @@ export default function SettingsModal({
 											<div
 												className="w-4 h-4 rounded-full"
 												style={{
-													background: "var(--accent-neutral)", // Neutral color
+													background: accentColorMap.neutral,
 												}}
 											/>
 											Neutral
@@ -160,7 +161,7 @@ export default function SettingsModal({
 										<div className="flex items-center gap-2">
 											<div
 												className="w-4 h-4 rounded-full"
-												style={{ background: "var(--accent-red)" }}
+												style={{ background: accentColorMap.red }}
 											/>
 											Red
 										</div>
@@ -169,7 +170,7 @@ export default function SettingsModal({
 										<div className="flex items-center gap-2">
 											<div
 												className="w-4 h-4 rounded-full"
-												style={{ background: "var(--accent-orange)" }}
+												style={{ background: accentColorMap.orange }}
 											/>
 											Orange
 										</div>
@@ -178,7 +179,7 @@ export default function SettingsModal({
 										<div className="flex items-center gap-2">
 											<div
 												className="w-4 h-4 rounded-full"
-												style={{ background: "var(--accent-blue)" }}
+												style={{ background: accentColorMap.blue }}
 											/>
 											Blue
 										</div>
