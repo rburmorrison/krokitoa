@@ -74,6 +74,20 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
+
+	/* Editor background colors */
+	--editor-bg: oklch(0.98 0 0);
+	--editor-bg-dark: oklch(0.2 0 0);
+
+	/* Logo accent colors */
+	--accent-neutral: oklch(0.5 0 0);
+	--accent-neutral-foreground: oklch(0.98 0 0);
+	--accent-red: oklch(0.65 0.25 25);
+	--accent-red-foreground: oklch(0.98 0 0);
+	--accent-orange: oklch(0.75 0.18 80);
+	--accent-orange-foreground: oklch(0.98 0 0);
+	--accent-blue: oklch(0.55 0.2 260);
+	--accent-blue-foreground: oklch(0.98 0 0);
 }
 
 .dark {
@@ -108,6 +122,49 @@
 	--sidebar-accent-foreground: oklch(0.985 0 0);
 	--sidebar-border: oklch(1 0 0 / 10%);
 	--sidebar-ring: oklch(0.556 0 0);
+
+	/* Editor background colors */
+	--editor-bg: oklch(0.2 0 0);
+	--editor-bg-dark: oklch(0.2 0 0);
+
+	/* Logo accent colors - dark mode */
+	--accent-neutral: oklch(0.5 0 0);
+	--accent-neutral-foreground: oklch(0.98 0 0);
+	--accent-red: oklch(0.65 0.25 25);
+	--accent-red-foreground: oklch(0.98 0 0);
+	--accent-orange: oklch(0.75 0.18 80);
+	--accent-orange-foreground: oklch(0.98 0 0);
+	--accent-blue: oklch(0.55 0.2 260);
+	--accent-blue-foreground: oklch(0.98 0 0);
+}
+
+/* Accent color classes */
+html[data-accent-color="neutral"] {
+	--accent: var(--accent-neutral);
+	--accent-foreground: var(--accent-neutral-foreground);
+	--editor-bg: oklch(0.98 0 0);
+	--editor-bg-dark: oklch(0.2 0 0);
+}
+
+html[data-accent-color="red"] {
+	--accent: var(--accent-red);
+	--accent-foreground: var(--accent-red-foreground);
+	--editor-bg: oklch(0.98 0.03 25);
+	--editor-bg-dark: oklch(0.2 0.05 25);
+}
+
+html[data-accent-color="orange"] {
+	--accent: var(--accent-orange);
+	--accent-foreground: var(--accent-orange-foreground);
+	--editor-bg: oklch(0.98 0.03 80);
+	--editor-bg-dark: oklch(0.2 0.05 80);
+}
+
+html[data-accent-color="blue"] {
+	--accent: var(--accent-blue);
+	--accent-foreground: var(--accent-blue-foreground);
+	--editor-bg: oklch(0.98 0.03 260);
+	--editor-bg-dark: oklch(0.2 0.05 260);
 }
 
 @layer base {

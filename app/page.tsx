@@ -131,7 +131,7 @@ export default function Home() {
 					maxSize={50}
 					hidden={isEditorHidden}
 				>
-					<div className="flex gap-4 h-full p-4 flex-col min-h-0">
+					<div className="flex gap-4 h-full p-4 flex-col min-h-0 bg-[var(--editor-bg)] dark:bg-[var(--editor-bg-dark)]">
 						<div className="flex items-center gap-2">
 							<div className="flex-1">
 								<DiagramTypeDropdown
@@ -144,11 +144,12 @@ export default function Home() {
 								variant="outline"
 								aria-label="Generate diagram"
 								onClick={generateDiagram}
+								className="border-accent/30 hover:border-accent/40 hover:bg-accent/5 focus:border-accent"
 							>
 								<Play />
 							</Button>
 						</div>
-						<div className="rounded flex-1 border border-neutral-200 dark:border-neutral-700 min-h-0">
+						<div className="rounded flex-1 border border-accent/30 min-h-0">
 							<DiagramCodeEditor
 								value={diagramCode}
 								onChange={onEditorChange}

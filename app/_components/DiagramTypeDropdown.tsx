@@ -95,7 +95,7 @@ export default function DiagramTypeDropdown({
 					// biome-ignore lint/a11y/useSemanticElements: a select would cause a duplicate menu
 					role="combobox"
 					aria-expanded={open}
-					className="justify-between w-full"
+					className="justify-between w-full border-accent/30 hover:border-accent/40 focus:border-accent"
 				>
 					{value
 						? supportedDiagramTypes.find(

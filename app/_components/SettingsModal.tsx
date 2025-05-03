@@ -19,6 +19,7 @@ import {
 	DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import useAccentColor, { type AccentColor } from "@/hooks/useAccentColor";
 
 const DEFAULT_KROKI_URL = "https://kroki.io";
 
@@ -34,22 +35,33 @@ export default function SettingsModal({
 	const [krokiUrl, setKrokiUrl] = useState(DEFAULT_KROKI_URL);
 	const { theme, setTheme } = useTheme();
 	const [themeValue, setThemeValue] = useState(theme ?? "system");
+	const { accentColor, updateAccentColor } = useAccentColor();
+	const [accentColorValue, setAccentColorValue] =
+		useState<AccentColor>(accentColor);
 
 	useEffect(() => {
 		const savedUrl = localStorage.getItem("krokiUrl");
 		if (savedUrl) {
 			setKrokiUrl(savedUrl);
 		}
-	}, []);
+
+		// Update the accent color value when the component mounts and whenever
+		// the accentColor from the hook changes
+		setAccentColorValue(accentColor);
+	}, [accentColor]);
 
 	const handleSave = () => {
 		localStorage.setItem("krokiUrl", krokiUrl);
 		setTheme(themeValue);
+		updateAccentColor(accentColorValue);
 		onOpenChange(false);
 	};
 
 	const themeDisplayName =
 		themeValue.charAt(0).toUpperCase() + themeValue.slice(1);
+
+	const accentColorDisplayName =
+		accentColorValue.charAt(0).toUpperCase() + accentColorValue.slice(1);
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
@@ -95,6 +107,81 @@ export default function SettingsModal({
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="dark">
 										Dark
+									</DropdownMenuRadioItem>
+								</DropdownMenuRadioGroup>
+							</DropdownMenuContent>
+						</DropdownMenu>
+					</div>
+					<div className="grid grid-cols-4 items-center gap-4">
+						<label htmlFor="accentColor" className="text-right text-sm">
+							Accent Color
+						</label>
+						<DropdownMenu>
+							<DropdownMenuTrigger className="col-span-3" asChild>
+								<Button variant="outline" className="justify-start">
+									<div className="flex items-center gap-2">
+										<div
+											className="w-4 h-4 rounded-full"
+											style={{
+												background:
+													accentColorValue === "neutral"
+														? "var(--accent-neutral)" // Neutral color
+														: accentColorValue === "red"
+															? "var(--accent-red)"
+															: accentColorValue === "orange"
+																? "var(--accent-orange)"
+																: "var(--accent-blue)",
+											}}
+										/>
+										{accentColorDisplayName}
+									</div>
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent>
+								<DropdownMenuLabel>Accent Color</DropdownMenuLabel>
+								<DropdownMenuRadioGroup
+									value={accentColorValue}
+									onValueChange={(value) => {
+										setAccentColorValue(value as AccentColor);
+									}}
+								>
+									<DropdownMenuRadioItem value="neutral">
+										<div className="flex items-center gap-2">
+											<div
+												className="w-4 h-4 rounded-full"
+												style={{
+													background: "oklch(0.5 0 0)", // Neutral color
+												}}
+											/>
+											Neutral
+										</div>
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="red">
+										<div className="flex items-center gap-2">
+											<div
+												className="w-4 h-4 rounded-full"
+												style={{ background: "oklch(0.65 0.25 25)" }}
+											/>
+											Red
+										</div>
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="orange">
+										<div className="flex items-center gap-2">
+											<div
+												className="w-4 h-4 rounded-full"
+												style={{ background: "oklch(0.75 0.18 80)" }}
+											/>
+											Orange
+										</div>
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="blue">
+										<div className="flex items-center gap-2">
+											<div
+												className="w-4 h-4 rounded-full"
+												style={{ background: "oklch(0.55 0.20 260)" }}
+											/>
+											Blue
+										</div>
 									</DropdownMenuRadioItem>
 								</DropdownMenuRadioGroup>
 							</DropdownMenuContent>
