@@ -18,6 +18,7 @@ Krokitoa is a front-end application for [Kroki](https://kroki.io/), a powerful o
 - **Resizable Panels**: Flexible layout with resizable panels for the editor and diagram preview.
 - **Error Handling**: Displays error messages when diagram generation fails.
 - **Settings**: Configure the application's appearance and behavior, including private Kroki instances.
+- **Shareable URLs**: Diagram type and code are encoded in the URL, allowing users to share diagrams easily.
 
 ## Getting Started
 
@@ -117,6 +118,8 @@ If you only want to run the front-end application as a standalone container, you
 ## How It Works
 
 Krokitoa interacts with the Kroki API to generate diagrams. Users can select a diagram type, write the corresponding textual description, and view the rendered diagram in real-time. The application uses local storage to persist the selected diagram type and code between sessions.
+
+When you create or edit a diagram, the diagram type and code are automatically encoded in the URL using base64 encoding. This allows you to bookmark or share the link to restore the exact diagram state, enabling easy collaboration and reproducibility. Anyone with the link can view and edit the same diagram.
 
 ## Technologies Used
 
