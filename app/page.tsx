@@ -24,6 +24,42 @@ import type { DiagramOutputHandle } from "./_components/DiagramOutput";
 import IconButton from "./_components/IconButton";
 import SettingsModal from "./_components/SettingsModal";
 
+// Encodes a Unicode string to base64, supporting both browser and Node.js environments.
+function encodeBase64(str: string): string {
+	// In browsers, use TextEncoder to handle Unicode safely, then btoa for base64.
+	if (typeof window !== "undefined" && "TextEncoder" in window) {
+		const encoder = new TextEncoder();
+		const bytes = encoder.encode(str);
+		let binary = "";
+		for (let i = 0; i < bytes.length; i++) {
+			binary += String.fromCharCode(bytes[i]);
+		}
+		return window.btoa(binary);
+	}
+	// In Node.js, Buffer handles Unicode and base64.
+	return Buffer.from(str, "utf-8").toString("base64");
+}
+
+// Decodes a base64 string to Unicode, supporting both browser and Node.js environments.
+function decodeBase64(str: string): string {
+	try {
+		// In browsers, use atob to get binary, then TextDecoder for Unicode.
+		if (typeof window !== "undefined" && "TextDecoder" in window) {
+			const binary = window.atob(str);
+			const bytes = new Uint8Array(binary.length);
+			for (let i = 0; i < binary.length; i++) {
+				bytes[i] = binary.charCodeAt(i);
+			}
+			const decoder = new TextDecoder();
+			return decoder.decode(bytes);
+		}
+		// In Node.js, Buffer handles base64 and Unicode.
+		return Buffer.from(str, "base64").toString("utf-8");
+	} catch {
+		return "";
+	}
+}
+
 export default function Home() {
 	const [diagramCode, setDiagramCode] = useState("flowchart TD\n    A --> B");
 	const [diagramSvg, setDiagramSvg] = useState<string | null>(null);
@@ -72,14 +108,24 @@ export default function Home() {
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
-			const storedType = localStorage.getItem("diagramType");
-			if (storedType) {
-				setDiagramType(storedType);
+			const params = new URLSearchParams(window.location.search);
+			const urlType = params.get("type");
+			const urlCode = params.get("code");
+			let initialType = "";
+			let initialCode = "";
+			if (urlType) initialType = decodeBase64(urlType);
+			if (urlCode) initialCode = decodeBase64(urlCode);
+
+			if (initialType) setDiagramType(initialType);
+			else {
+				const storedType = localStorage.getItem("diagramType");
+				if (storedType) setDiagramType(storedType);
 			}
 
-			const storedCode = localStorage.getItem("diagramCode");
-			if (storedCode) {
-				setDiagramCode(storedCode);
+			if (initialCode) setDiagramCode(initialCode);
+			else {
+				const storedCode = localStorage.getItem("diagramCode");
+				if (storedCode) setDiagramCode(storedCode);
 			}
 		}
 	}, []);
@@ -90,6 +136,17 @@ export default function Home() {
 		// or when the settings modal is closed (tracked by isSettingsOpen).
 		setUpstreamUrl(kroki.generateUrl(diagramType, diagramCode));
 	}, [diagramType, diagramCode, isSettingsOpen]);
+
+	// Update URL when diagramType or diagramCode changes
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const params = new URLSearchParams(window.location.search);
+			params.set("type", encodeBase64(diagramType));
+			params.set("code", encodeBase64(diagramCode));
+			const newUrl = `${window.location.pathname}?${params.toString()}`;
+			window.history.replaceState({}, "", newUrl);
+		}
+	}, [diagramType, diagramCode]);
 
 	return (
 		<div className="w-screen h-screen">
