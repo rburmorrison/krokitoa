@@ -1,7 +1,7 @@
-import { Editor, useMonaco, loader } from "@monaco-editor/react";
-import { useEffect, useRef, useState } from "react";
+import { Editor, loader, useMonaco } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from "react";
 
 loader.config({ paths: { vs: "/static/vs" } });
 
