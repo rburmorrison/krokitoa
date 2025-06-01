@@ -1,16 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import useAccentColor, { type AccentColor } from "@/app/_hooks/useAccentColor";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useTheme } from "next-themes";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -18,8 +16,10 @@ import {
 	DropdownMenuRadioGroup,
 	DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import useAccentColor, { type AccentColor } from "@/app/_hooks/useAccentColor";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const DEFAULT_KROKI_URL = "https://kroki.io";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // Define accent color options
 export type AccentColor = "neutral" | "red" | "orange" | "blue";

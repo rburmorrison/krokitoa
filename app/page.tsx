@@ -1,28 +1,28 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
 	ResizableHandle,
 	ResizablePanel,
 	ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import DiagramTypeDropdown from "./_components/DiagramTypeDropdown";
-import { useState, useRef, useEffect } from "react";
-import DiagramCodeEditor from "./_components/DiagramCodeEditor";
-import * as kroki from "./_lib/kroki";
 import {
-	RefreshCcw,
 	Crosshair,
 	Maximize,
 	Minimize,
-	Save,
 	Play,
+	RefreshCcw,
+	Save,
 	Settings,
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import DiagramCodeEditor from "./_components/DiagramCodeEditor";
 import DiagramOutput from "./_components/DiagramOutput";
-import { Button } from "@/components/ui/button";
 import type { DiagramOutputHandle } from "./_components/DiagramOutput";
+import DiagramTypeDropdown from "./_components/DiagramTypeDropdown";
 import IconButton from "./_components/IconButton";
 import SettingsModal from "./_components/SettingsModal";
+import * as kroki from "./_lib/kroki";
 
 // Encodes a Unicode string to base64, supporting both browser and Node.js environments.
 function encodeBase64(str: string): string {
